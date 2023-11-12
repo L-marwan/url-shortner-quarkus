@@ -1,8 +1,10 @@
 package com.maroune.urlshortner;
 
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.SecurityContext;
 import org.jboss.logging.Logger;
 
 @Path("/")
@@ -29,9 +31,12 @@ public class URLShortnerResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response shorten(URLShortenRequest request) {
+    public Response shorten(URLShortenRequest request, @Context SecurityContext securityContext) {
         var key = shortnerService.shortenURL(request.getUrl());
-        logger.info("generated key: " + key);
+        var user = securityContext.getUserPrincipal() != null ?
+                securityContext.getUserPrincipal().getName()
+                : "Anonymous";
+        logger.info("[%s] generated key: %s".formatted(user, key));
         return Response.ok(new URLShortenResponse(key, "kkk", request.getUrl())).build();
     }
 
