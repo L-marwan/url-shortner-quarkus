@@ -5,9 +5,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.jboss.logging.Logger;
 
-import java.net.URISyntaxException;
-
-@Path("/short")
+@Path("/")
 public class URLShortnerResource {
     private final Logger logger = Logger.getLogger(URLShortnerResource.class);
 
@@ -20,7 +18,7 @@ public class URLShortnerResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{key}")
-    public Response redirect(@PathParam("key") String key) throws URISyntaxException {
+    public Response redirect(@PathParam("key") String key) {
         logger.info("key: %s".formatted(key));
         String url = shortnerService.getURL(key);
         if (url == null) {
@@ -33,6 +31,7 @@ public class URLShortnerResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response shorten(URLShortenRequest request) {
         var key = shortnerService.shortenURL(request.getUrl());
+        logger.info("generated key: " + key);
         return Response.ok(new URLShortenResponse(key, "kkk", request.getUrl())).build();
     }
 

@@ -7,8 +7,9 @@ I wanted to take this as a chance to also get my hands on Quarkus. And I use red
 - [x] Create endpoint to take a url and return a shortened version.
 - [x] Create endpoint to redirect to an actual url give the shortened key.
 - [x] Store and Retrieve the different data using the Redis client.
-- [ ] Create an algorithm to generate a unique key given a URL.
-- [ ] Add authentication (maybe a limit to how many urls can be created etc..)
+- [x] Create an algorithm to generate a unique key given a URL.
+- [ ] Add basic authentication (maybe a limit to how many urls can be created etc..)
+- [ ] Add OAuth integration ???
 - [ ] Add some form of analytics endpoint
 - [ ] Build a GUI
 
