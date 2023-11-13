@@ -10,7 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "test_user")
+@Table(name = "users")
 @UserDefinition
 public class User extends PanacheEntity {
     @Username
@@ -27,5 +27,9 @@ public class User extends PanacheEntity {
         user.password = BcryptUtil.bcryptHash(password);
         user.role = role;
         user.persist();
+    }
+
+    public static User findByName(String name) {
+        return find("username", name).firstResult();
     }
 }

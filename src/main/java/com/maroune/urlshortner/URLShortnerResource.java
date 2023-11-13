@@ -1,5 +1,6 @@
 package com.maroune.urlshortner;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
@@ -31,6 +32,7 @@ public class URLShortnerResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed("admin")
     public Response shorten(URLShortenRequest request, @Context SecurityContext securityContext) {
         var key = shortnerService.shortenURL(request.getUrl());
         var user = securityContext.getUserPrincipal() != null ?
