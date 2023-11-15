@@ -1,7 +1,9 @@
 package com.maroune.urlshortner;
 
 public interface IURLShortnerService {
-    public String getURL(String key);
+    ShortenedURLData getURL(String key);
 
-    public String shortenURL(String url);
+    void incrementVisits(String key);
+
+    String shortenURL(String url);
 }
